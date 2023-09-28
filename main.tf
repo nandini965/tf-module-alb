@@ -1,15 +1,14 @@
-
 resource "aws_security_group" "sg" {
   name        = "${var.name}-alb-${var.env}-sg"
   description = "${var.name}-alb-${var.env}-sg"
   vpc_id      = var.vpc_id
 
   ingress {
-    description      = "HTTP"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = var.allow_alb_cidr
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = var.allow_alb_cidr
   }
 
   egress {
@@ -21,7 +20,7 @@ resource "aws_security_group" "sg" {
   }
 
   tags = merge(var.tags, { Name = "${var.name}-alb-${var.env}-sg" })
-  }
+}
 
 resource "aws_lb" "main" {
   name               = "${var.name}-alb-${var.env}"
@@ -29,8 +28,9 @@ resource "aws_lb" "main" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg.id]
   subnets            = var.subnets
-  tags =  merge(var.tags, { Name = "${var.name}-alb-${var.env}-sg" })
+  tags               = merge(var.tags, { Name = "${var.name}-alb-${var.env}" })
 }
+
 
 
 
