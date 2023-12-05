@@ -41,7 +41,7 @@ resource "aws_lb_listener" "main" {
     fixed_response {
       content_type = "text/plain"
       message_body = "unauthorized"
-      status_code  = "403"
+      status_code  = "404"
     }
   }
 }
